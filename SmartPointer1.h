@@ -15,7 +15,7 @@ class SmartPointer1
          * \brief Initialize a new smart pointer
          * \param ptr An existing pointer to a USER ALLOCATED memory
          */
-        SmartPointer1(T*);
+        SmartPointer1(T *ptr);
 
         /*!
          * Destructor
@@ -60,15 +60,16 @@ class SmartPointer1
              * \param ptr A pointer to a USER ALLOCATED memory of type T
              * \param c The reference count
              */
-            Counter(T* ptr, unsigned int c): p(ptr), count(c){}
+            Counter(T *ptr, unsigned int c): p(ptr), count(c){}
             T *p;
             unsigned int count;
         }*counter;
 
         /*
          * Add our reference to the pointer
+         * \param c The pointer reference counter
          */
-        void acquire(Counter*);
+        void acquire(Counter *c);
 
         /*
          * Decrement our reference to the pointer and delete it if no reference left
