@@ -66,13 +66,13 @@ class SmartPointer1
         }*counter;
 
         /*
-         * Add our reference to the pointer
+         * Add "this" reference to the pointer
          * \param c The pointer reference counter
          */
         void acquire(Counter *c);
 
         /*
-         * Decrement our reference to the pointer and delete it if no reference left
+         * Decrement "this" reference to the pointer and delete it if no reference left
          */
         void release();
 };

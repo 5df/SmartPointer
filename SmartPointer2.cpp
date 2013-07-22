@@ -33,7 +33,7 @@ SmartPointer2<T>&
 SmartPointer2<T>::operator=(const SmartPointer2& smartptr)
 {
     if (this != &smartptr) {
-            /* Release our reference to acquire a new one */
+            /* Release "this" reference to acquire a new one */
             release();
             acquire(smartptr);
     }

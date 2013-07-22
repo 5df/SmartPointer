@@ -60,11 +60,11 @@ class SmartPointer2
         mutable const SmartPointer2 *next;
 
         /*
-         * Add our reference to the pointer
+         * Add "this" reference to the pointer
          */
         void acquire(const SmartPointer2& o);
         /*
-         * Release our reference to the pointer and delete it if no reference left
+         * Release "this" reference to the pointer and delete it if no reference left
          */
         void release();
 };
