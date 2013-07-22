@@ -1,8 +1,18 @@
 #include "SmartPointer2.h"
 
+/*!
+ * \file SmarPointer2.cpp
+ * \brief A SmartPointer implementation based on reference linking.
+ * Each time a new SmartPointer instance is created trought copy constructor
+ * this instance is added to a linked list of references, and each time the
+ * instance is destroyed, the destructor take care of deleting this reference of the list.
+ * These two operations are implemented by the private function acquire() and delete()
+ */
+
 template <typename T>
 SmartPointer2<T>::SmartPointer2(T *ptr=0) : p(ptr)
 {
+    /* At this time, the only reference is "this" */
     prev = next = this;
 }
 
@@ -13,18 +23,19 @@ SmartPointer2<T>::~SmartPointer2()
 }
 
 template <typename T>
-SmartPointer2<T>::SmartPointer2(const SmartPointer2& o)
+SmartPointer2<T>::SmartPointer2(const SmartPointer2& smartptr)
 {
-    acquire(o);
+    acquire(smartptr);
 }
 
 template <typename T>
 SmartPointer2<T>&
-SmartPointer2<T>::operator=(const SmartPointer2& o)
+SmartPointer2<T>::operator=(const SmartPointer2& smartptr)
 {
-    if (this != &o) {
+    if (this != &smartptr) {
+            /* Release our reference to acquire a new one */
             release();
-            acquire(o);
+            acquire(smartptr);
     }
     return *this;
 }
@@ -43,25 +54,40 @@ T* SmartPointer2<T>::operator->()
 
 
 template <typename T>
-void SmartPointer2<T>::acquire(const SmartPointer2& o)
+void SmartPointer2<T>::acquire(const SmartPointer2& smartptr)
 {
-    // Append to the tail of doublie linked list
-    p = o.p;
-    next = o.next;
+    /* Here the double linked list look like this
+     *
+     * smartptr.prev (A) <---> smartptr <----> (B) smartptr.next
+     */
+
+    /* Get the smartptr pointer */
+    p = smartptr.p;
+    /* Append "this" to the double linked list */
+    next = smartptr.next;
     next->prev = this;
-    prev = &o;
-    o.next = this;
+    prev = &smartptr;
+    smartptr.next = this;
+
+    /* Here we "this"'s in the double linked reference list, thats look like
+     *
+     * smartptr.next (A) <----> smartptr <----> this <-----> (B) this.next
+     */
 }
 
 template <typename T>
 void SmartPointer2<T>::release()
 {
-    if (prev ? prev==this : true)
+    if (!prev || prev==this)
     {
+        /* If prev is null or egual to this
+         * then "this"'s the last reference
+         * free the memory pointed by p
+         */
         delete p;
     }
     else {
-        // Get out of the double linked list
+        // Get "this" out of the double linked list
         prev->next = next;
         next->prev = prev;
         prev = next = 0;

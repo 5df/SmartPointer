@@ -2,7 +2,7 @@
 #define SMARTPOINTER1_H
 
 /*!
- * SmartPointer1
+ * \file SmartPointer1.h
  * \brief A smart pointer based on a reference counter.
  */
 
