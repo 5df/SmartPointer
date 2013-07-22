@@ -19,7 +19,7 @@ class SmartPointer1
 
         /*!
          * Destructor
-         * \brief Delete reference to the pointer and delete it if no one left
+         * \brief Delete reference to the pointer and delete it if no reference left
          */
         virtual ~SmartPointer1();
 
@@ -49,12 +49,12 @@ class SmartPointer1
          */
         SmartPointer1<T>& operator=(const SmartPointer1<T>& smartptr);
     private:
-        /*!
+        /*
          * Reference counting object
          * \brief Store the wrapped pointer and its reference counter
          */
         struct Counter{
-            /*!
+            /*
              * Constructor
              * \brief Initialize the reference counter
              * \param ptr A pointer to a USER ALLOCATED memory of type T
@@ -65,13 +65,13 @@ class SmartPointer1
             unsigned int count;
         }*counter;
 
-        /*!
-         * \brief Add our reference to the pointer
+        /*
+         * Add our reference to the pointer
          */
         void acquire(Counter*);
 
-        /*!
-         * \brief Decrement our reference to the pointer and delete it if no reference left
+        /*
+         * Decrement our reference to the pointer and delete it if no reference left
          */
         void release();
 };
