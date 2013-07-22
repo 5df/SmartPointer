@@ -65,7 +65,7 @@ SmartPointer1<T>::operator=(const SmartPointer1<T>& smartptr)
 template <typename T>
 void SmartPointer1<T>::acquire(Counter *c)
 {
-    /* Make sure we point to the right reference counter */
+    /* Update this reference counter */
     counter = c;
     if (c)
     {

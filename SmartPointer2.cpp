@@ -80,14 +80,16 @@ void SmartPointer2<T>::release()
 {
     if (!prev || prev==this)
     {
-        /* If prev is null or egual to this
-         * then "this"'s the last reference
-         * free the memory pointed by p
+        /* If previous reference is null or is this
+         * then "this"'s the last reference to p
+         * free it
          */
         delete p;
     }
     else {
-        // Get "this" out of the double linked list
+        /* They are remaining references,
+         * just get "this" out of the double linked list
+         */
         prev->next = next;
         next->prev = prev;
         prev = next = 0;
