@@ -1,6 +1,8 @@
 #define BOOST_TEST_MODULE test_smart_pointer
 #include <boost/test/unit_test.hpp>
 
+// As we are using templates we need to include the implementation in
+// order to allow the compiler to generate the needed methods
 #include "SmartPointer1.cpp"
 
 template <typename T>
