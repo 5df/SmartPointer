@@ -10,7 +10,7 @@
  */
 
 template <typename T>
-SmartPointer1<T>::SmartPointer1(T *ptr=0) : counter(0)
+SmartPointer1<T>::SmartPointer1(T *ptr=nullptr) : counter(0)
 {
     if(ptr)
     {
@@ -88,6 +88,7 @@ void SmartPointer1<T>::release()
              * (by the constructor)
              */
             delete counter->p;
+            counter->p=nullptr;
             delete counter;
             counter = 0;
         }

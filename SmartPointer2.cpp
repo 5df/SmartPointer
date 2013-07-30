@@ -10,7 +10,7 @@
  */
 
 template <typename T>
-SmartPointer2<T>::SmartPointer2(T *ptr=0) : p(ptr)
+SmartPointer2<T>::SmartPointer2(T *ptr=nullptr) : p(ptr)
 {
     /* At this time, the only reference is "this" */
     prev = next = this;
@@ -92,7 +92,7 @@ void SmartPointer2<T>::release()
          */
         prev->next = next;
         next->prev = prev;
-        prev = next = 0;
+        prev = next = nullptr;
     }
-    p = 0;
+    p = nullptr;
 }
